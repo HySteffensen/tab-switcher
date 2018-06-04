@@ -1,1 +1,1 @@
-# tab-switcher
+This is a tab-switching program using vanilla JavaScript.
