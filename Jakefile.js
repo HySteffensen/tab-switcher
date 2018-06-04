@@ -3,10 +3,10 @@
 "use strict";
 
 var jshint = require("simplebuild-jshint");
-
+var mocha = require("jake-mocha");
 
 desc("Default Task");
-task("default", ["lint"], function() {
+task("default", ["lint", "mocha"], function() {
     console.log("\n\nBUILD OK");
 });
 
@@ -19,6 +19,11 @@ task("lint", function() {
         options: lintOptions(),
         globals: lintGlobals()
     }, complete, fail);
+}, { async: true });
+
+mocha.defineTask({
+    name: 'mocha',
+    files: './src/test-dir/**/*.js'
 }, { async: true });
 
 function lintOptions() {
