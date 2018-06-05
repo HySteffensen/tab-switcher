@@ -19,6 +19,14 @@
                 done();
             });
         });
+
+        it("serves the index file", function(done) {
+            server.start();
+            http.get("http://localhost:8080/index.html", function(res) {
+                assert.equal(res.statusCode, 200);
+                done();
+            });
+        });
     });
 
     
