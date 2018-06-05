@@ -6,6 +6,8 @@
     var jshint = require("simplebuild-jshint");
     var mocha = require("jake-mocha");
 
+    var server = require("./src/server/server");
+
     desc("Default Task");
     task("default", ["lint", "mocha"], function() {
         console.log("\n\nBUILD OK");
@@ -26,6 +28,11 @@
         name: 'mocha',
         files: './src/server/**/*.js'
     }, { async: true });
+
+    desc("Starts http Server");
+    task("run", function() {
+        server.start();
+    });
 
     function lintOptions() {
         return {
