@@ -24,7 +24,7 @@
 
     mocha.defineTask({
         name: 'mocha',
-        files: './src/test-dir/**/*.js'
+        files: './src/server/**/*.js'
     }, { async: true });
 
     function lintOptions() {
