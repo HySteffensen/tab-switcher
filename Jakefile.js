@@ -8,6 +8,8 @@
 
     var server = require("./src/server/server");
 
+    const PORT = 8080;
+
     desc("Default Task");
     task("default", ["lint", "mocha"], function() {
         console.log("\n\nBUILD OK");
@@ -29,9 +31,9 @@
         files: './src/server/**/*.js'
     }, { async: true });
 
-    desc("Starts http Server");
+    desc("Starts HTTP Server");
     task("run", function() {
-        server.start();
+        server.start(PORT);
     });
 
     function lintOptions() {
