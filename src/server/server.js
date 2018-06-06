@@ -1,3 +1,5 @@
+/* jshint -W027 */
+
 (function() {
     "use strict";
 
@@ -6,7 +8,8 @@
     var fs = require('fs');
     var server;
     
-    exports.start = function() {
+    exports.start = function(portNumber) {
+        if (!portNumber) throw new Error("Port Number Required");
         server = http.createServer();
         server.listen(8080);
 
@@ -27,6 +30,7 @@
     };
 
     exports.stop = function(callback) {
+        if (server === undefined) throw new Error("Server hasn't started.");
         server.close(callback);
     };
 
