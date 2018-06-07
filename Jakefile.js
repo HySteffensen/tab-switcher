@@ -3,13 +3,16 @@
 (function() {
     "use strict";
 
-    var jshint = require("simplebuild-jshint");
-    var mocha = require("jake-mocha");
+    const jshint = require("simplebuild-jshint");
+    const mocha = require("jake-mocha");
+    const browserify = require("browserify");
+    const path = require("path");
 
-    var server = require("./src/server/server");
+    const server = require("./src/server/server");
     const PORT = 8080;
 
     const BUILD_DIR = "build";
+    const CONTENT_DIR = "content";
 
     desc("Default Task");
     task("default", ["lint", "mocha"], function() {
@@ -41,8 +44,13 @@
     task("build", function() {
         console.log("Building Distribution Directory: .");
         jake.mkdirP(BUILD_DIR);
-        jake.cpR("./src/content", BUILD_DIR);
-    });
+        jake.cpR(path.join("./src", CONTENT_DIR), BUILD_DIR);
+        jake.exec(
+            "node node_modules/browserify/bin/cmd.js -r ./src/javascript/tab-switcher.js:tabs -o " + BUILD_DIR + "/" + CONTENT_DIR + "/bundle.js",
+            { interactive: true }, 
+            complete
+        );
+    }, { async:true });
 
     desc("Clean Distribution Directory");
     task("clean", function() {
