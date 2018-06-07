@@ -1,3 +1,5 @@
 generate build directory
 install and configure http-server
 set up cross-browser testing with mocha
+clean directory
+browserify tab-switcher.js
