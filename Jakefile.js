@@ -7,8 +7,9 @@
     var mocha = require("jake-mocha");
 
     var server = require("./src/server/server");
-
     const PORT = 8080;
+
+    const BUILD_DIR = "build";
 
     desc("Default Task");
     task("default", ["lint", "mocha"], function() {
@@ -34,6 +35,19 @@
     desc("Starts HTTP Server");
     task("run", function() {
         server.start(PORT);
+    });
+
+    desc("Build Distribution Directory");
+    task("build", function() {
+        console.log("Building Distribution Directory: .");
+        jake.mkdirP(BUILD_DIR);
+        jake.cpR("./src/content", BUILD_DIR);
+    });
+
+    desc("Clean Distribution Directory");
+    task("clean", function() {
+        console.log("Clean Distribution: .");
+        jake.rmRf(BUILD_DIR);
     });
 
     function lintOptions() {
